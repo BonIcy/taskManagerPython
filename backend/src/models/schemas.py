@@ -22,7 +22,7 @@ class Task(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
     description = Column(String)
-    status = Column(String)
+    status = Column(Boolean,default=True)
     user_id = Column(Integer, ForeignKey('users.id'), index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
