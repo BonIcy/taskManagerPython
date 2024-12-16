@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends,UploadFile, File
 from sqlalchemy.orm import Session
 from src.middlewares.auth import get_current_user
 from src.dbConnection.config import get_db
@@ -31,16 +31,15 @@ def get_tasks(user: User = Depends(get_current_user), db: Session = Depends(get_
 
 @router.put("/tasks/{task_id}", response_model=TaskResponse)
 def edit_task(task_id: int, task: TaskCreate, db: Session = Depends(get_db), user = Depends(get_current_user)):
-    return update_task(db=db, user=user, task_id=task_id, title=task.title, description=task.description)
-
+    return update_task(db=db, user=user, task_id=task_id, title=task.title, description=task.description, status=task.status)
 @router.delete("/tasks/{task_id}")
 def remove_task(task_id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
     return delete_task(db=db, user=user, task_id=task_id)
 
 @router.post("/tasks/export")
-def export_tasks(file_path: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return exportJson(db=db, user=user, file_path=file_path)
+def export_tasks(file_name: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return exportJson(db=db, user=user, file_name=file_name)
 
 @router.post("/tasks/import")
-def import_tasks(file_path: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return importJson(db=db, user=user, file_path=file_path)
+def import_tasks(file: UploadFile = File(...), db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return importJson(db=db, user=user, file=file)
