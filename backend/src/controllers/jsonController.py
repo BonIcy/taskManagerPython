@@ -1,10 +1,12 @@
 import json
+import os
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from src.models.schemas import Task, User
-
-
-def exportJson(db: Session, user: User, file_path: str):
+from fastapi.responses import FileResponse
+import platform 
+from fastapi import UploadFile, File
+def exportJson(db: Session, user: User, file_name: str):
     if not user:
         raise HTTPException(status_code=400, detail="User not found")
 
@@ -24,24 +26,26 @@ def exportJson(db: Session, user: User, file_path: str):
     ]
 
     try:
-        with open(file_path, "w") as json_file:
+
+        if platform.system() == "Windows":
+            download_path = os.path.join(os.path.expanduser("~"), "Downloads", file_name)
+        else:
+            download_path = f"/tmp/{file_name}"
+        with open(download_path, "w") as json_file:
             json.dump(tasks_data, json_file, indent=4)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to export tasks: {str(e)}")
+    return FileResponse(download_path, media_type="application/json", filename=file_name)
 
-    return {"detail": "Tasks exported successfully", "file_path": file_path}
-
-def importJson(db: Session, user: User, file_path: str):
+def importJson(db: Session, user: User, file: UploadFile = File(...)):
     if not user:
         raise HTTPException(status_code=400, detail="User not found")
 
     try:
-        with open(file_path, "r") as json_file:
-            tasks_data = json.load(json_file)
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="JSON file not found")
-    except json.JSONDecodeError:
-        raise HTTPException(status_code=400, detail="Invalid JSON format")
+        contents = file.file.read()
+        tasks_data = json.loads(contents)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail="Failed to read JSON file")
 
     imported_tasks = []
 
