@@ -8,6 +8,8 @@ from src.controllers.taskController import create_task, list_tasks, update_task,
 from src.models.schemas import User
 from src.models.schemas import UserCreate, UserLogin, TaskCreate, TaskResponse
 from typing import List
+from src.controllers.jsonController import exportJson, importJson
+
 
 router = APIRouter()
 
@@ -34,3 +36,11 @@ def edit_task(task_id: int, task: TaskCreate, db: Session = Depends(get_db), use
 @router.delete("/tasks/{task_id}")
 def remove_task(task_id: int, db: Session = Depends(get_db), user = Depends(get_current_user)):
     return delete_task(db=db, user=user, task_id=task_id)
+
+@router.post("/tasks/export")
+def export_tasks(file_path: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return exportJson(db=db, user=user, file_path=file_path)
+
+@router.post("/tasks/import")
+def import_tasks(file_path: str, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    return importJson(db=db, user=user, file_path=file_path)
