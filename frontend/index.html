@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Task Manager</h1>
+        <div class="filters">
+            <button id="show-all">Show All</button>
+            <button id="show-completed">Show Completed</button>
+            <button id="show-pending">Show In Progress</button>
+            <button id="create-task">Create Task</button>
+            <button id="import-tasks">Import Tasks</button> 
+            <button id="export-tasks">Export Tasks</button> 
+        </div>
+        <button id="logout-button">Logout</button>
+    </nav>
+    <div class="content">
+        <h2>Your Tasks</h2>
+        <div id="tasks-container">
+            <p>Loading tasks...</p>
+        </div>
+        
+    </div>
+    <div id="task-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="close-modal">&times;</span>
+            <h2>Create a New Task</h2>
+            <form id="task-form">
+                <label for="task-title">Title:</label>
+                <input type="text" id="task-title" name="title" required>
+                
+                <label for="task-description">Description:</label>
+                <textarea id="task-description" name="description" required></textarea>
+                
+                <button type="submit">Create Task</button>
+            </form>
+        </div>
+    </div>
+    <div id="update-task-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button" id="close-update-modal">&times;</span>
+            <h2>Update Task</h2>
+            <form id="update-task-form">
+                <label for="update-task-title">Title:</label>
+                <input type="text" id="update-task-title" name="title" required>
+    
+                <label for="update-task-description">Description:</label>
+                <textarea id="update-task-description" name="description" required></textarea>
+    
+                <label for="update-task-status">Status:</label>
+                <select id="update-task-status" name="status">
+                    <option value="true">In Progress</option>
+                    <option value="false">Completed</option>
+                </select>
+    
+                <button type="submit">Update Task</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="index.js" ></script>
+</body>
+</html>
