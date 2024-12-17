@@ -1,4 +1,4 @@
-en la ruta ./ia_course:
+en la ruta ./taskManagerPython:
 
 .\.venv\Scripts\Activate
 pip install sqlalchemy
