@@ -41,13 +41,10 @@ En la carpeta raíz ./taskManagerPython, ejecutar:
 python -m venv .venv
 .\.venv\Scripts\Activate
 ```
-<<<<<<< HEAD
-=======
 Al ejecutar el ultimo comando deberia aparecer "(.env)" antes de la ruta en la terminal
 
 ![alt text](frontend/doc/env.png)
 
->>>>>>> frontend
 
 ### 3. Instalar las dependencias
 ```
@@ -68,29 +65,19 @@ cd backend
 python main.py
 uvicorn main:app --reload
 ```
-<<<<<<< HEAD
-=======
 
 Luego de la ejecución de los comandos anteriores, deberia aparecer el siguiente estado en consola, indicando que se inicializó el servidor local de FastAPI en http://127.0.0.1:8000.
 
 ![alt text](frontend/doc/startup.png)
->>>>>>> frontend
 
-Esto iniciará el servidor local de FastAPI en http://127.0.0.1:8000.
+
 
 ### 5. Ejecutar el Frontend
 
-<<<<<<< HEAD
-=======
-### 5. Ejecutar el Frontend
-
->>>>>>> frontend
 Una vez el backend esté activo:
 
     Abre el archivo index.html ubicado dentro de la carpeta frontend en cualquier navegador web.
     Accede a la interfaz, primero deberas registrarte e iniciar sesión para acceder a la interfaz del administrador de tareas
-<<<<<<< HEAD
-=======
 
 El archivo index.html se encuentra al siguiente nivel de carpetas
 
@@ -119,4 +106,3 @@ Si exportamos las tareas se descargará un archivo llamado task_export.json
 El botón de importar nos va a abrir un input de tipo file o archivo, en donde podemos seleccionar un json para agregar las tareas a nuestra lista
 
 ![alt text](frontend/doc/import.png)
->>>>>>> frontend
