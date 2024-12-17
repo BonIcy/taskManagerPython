@@ -51,6 +51,7 @@ class UserLogin(BaseModel):
 class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
+    status: Optional[bool] = None
 
 class TaskResponse(BaseModel):
     id: int
